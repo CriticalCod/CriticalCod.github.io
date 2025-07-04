@@ -7,17 +7,14 @@ let particles=[], cursorPos={x:-100,y:-100};
 
 lightBg.style.opacity='1';
 
-// Audio flow
 window.addEventListener('DOMContentLoaded',()=>{
   welcomeAudio.play().catch(()=>{});
   welcomeAudio.addEventListener('ended',()=>bgAudio.play().catch(()=>{}));
 });
 window.addEventListener('beforeunload',()=>goodbyeAudio.play().catch(()=>{}));
 
-// Typing effect
 function typeEffect(txt,el,delay){let i=0;(function loop(){if(i<txt.length){el.textContent+=txt[i++];setTimeout(loop,delay);}})();}
 
-// Title animation
 (function animateTitle(){
   const titles=["Welcome","Casus"];
   let idx=0, sub=0, forward=true;
@@ -29,7 +26,6 @@ function typeEffect(txt,el,delay){let i=0;(function loop(){if(i<txt.length){el.t
   },300);
 })();
 
-// On load
 window.onload=()=>{
   typeEffect("Casus",document.getElementById("typed-name"),150);
   typeEffect("With 3 years mastering code, 2 months crafting GFX, 1 year animating & extensive graphic design, I create engaging digital experiences.",document.getElementById("description"),25);
@@ -40,7 +36,6 @@ window.onload=()=>{
   new SmoothScroll("nav a[href*='#']",{speed:800,speedAsDuration:true});
 };
 
-// Cursor & interaction
 function initCursor(){
   document.addEventListener('mousemove',e=>{cursor.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;cursorPos={x:e.clientX,y:e.clientY};});
   document.querySelectorAll("a,button,.card").forEach(el=>{
@@ -49,7 +44,6 @@ function initCursor(){
   });
 }
 
-// Reveal
 function initScroll(){
   document.querySelectorAll("section").forEach(el=>{
     new IntersectionObserver(([e],obs)=>{if(e.isIntersecting){el.classList.add("visible");obs.disconnect();}},{threshold:0.3}).observe(el);
@@ -61,7 +55,6 @@ function initScroll(){
   if(img)new IntersectionObserver(([e],obs)=>{if(e.isIntersecting){img.classList.add("visible");obs.disconnect();}}, {threshold:0.3}).observe(img);
 }
 
-// Card tilt
 function initCardHover(){
   document.querySelectorAll(".card").forEach(card=>{
     card.addEventListener("mousemove",e=>{
@@ -72,7 +65,6 @@ function initCardHover(){
   });
 }
 
-// Particle physics
 function initCanvas(){
   canvas.width=window.innerWidth;canvas.height=window.innerHeight;
   particles=[];const isSnow=body.classList.contains("snow");
@@ -115,7 +107,6 @@ function animate(){
   requestAnimationFrame(animate);
 }
 
-// Theme switch
 toggleBtn.addEventListener("click",()=>{
   const isSnow=body.classList.toggle("snow");
   body.classList.toggle("rain",!isSnow);
@@ -126,7 +117,6 @@ toggleBtn.addEventListener("click",()=>{
 });
 window.addEventListener("resize",initCanvas);
 
-// Voxel avatar
 function initVoxel(){
   const container=document.getElementById("voxelCanvas");
   if(!container)return;
@@ -140,7 +130,6 @@ function initVoxel(){
   })();
 }
 
-// GSAP scroll effects
 function initGSAPAnimations(){
   gsap.registerPlugin(ScrollTrigger);
   gsap.from(".card",{opacity:0,y:40,stagger:0.2,duration:0.8,ease:"power2.out",scrollTrigger:{trigger:".cards",start:"top 80%"}});
