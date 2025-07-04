@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casus | Roblox Dev</title>
+  <link rel="icon" href="portfolio.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="snow">
+
+  <img src="light-mode.png" class="bg-img" id="lightBg" />
+  <img src="dark-mode.png" class="bg-img" id="darkBg" />
+  <canvas id="weatherCanvas"></canvas>
+  <div class="overlay-effects"></div>
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="#profile">Profile</a>
+    <a href="#about">About</a>
+    <a href="#games">Games</a>
+    <a href="#gfx">GFX</a>
+    <a href="#connect">Connect</a>
+  </nav>
+  <button id="toggleBtn">🌧️ Rain Mode</button>
+
+  <!-- Audios -->
+  <audio id="welcomeAudio" src="WELCOME.mp3" preload="auto"></audio>
+  <audio id="bgAudio" src="Mort.v1.mp3" loop preload="auto"></audio>
+  <audio id="goodbyeAudio" src="GOODBYE.mp3" preload="auto"></audio>
+
+  <section id="profile">
+    <a href="https://www.roblox.com/users/5285137754/profile" target="_blank">
+      <img id="profilePic" src="gfx8.png" alt="Casus Profile" />
+    </a>
+    <div id="voxelCanvas"></div>
+    <h1 id="typed-name" class="glow flicker"></h1>
+  </section>
+
+  <section id="about">
+    <h2></h2>
+    <p id="description"></p>
+  </section>
+
+  <section id="games">
+    <h2></h2>
+    <div class="cards">
+      <div class="card" onclick="window.open('https://www.roblox.com/games/16910864408/Parkour-remix-Beta')">
+        <img src="https://assetgame.roblox.com/Game/Thumbnail/?id=16910864408&width=420&height=420" alt="Parkour Remix Beta" />
+        <div class="card-title">Parkour Remix Beta</div>
+      </div>
+      <div class="card" onclick="window.open('https://www.roblox.com/games/18583305383/Robloc-Home-Revamped-Beta-Realism')">
+        <img src="https://assetgame.roblox.com/Game/Thumbnail/?id=18583305383&width=420&height=420" alt="Robloc Home Revamped" />
+        <div class="card-title">Robloc Home Revamped</div>
+      </div>
+      <div class="card" onclick="window.open('https://www.roblox.com/games/100454582151334/Long-Game-Beta')">
+        <img src="https://assetgame.roblox.com/Game/Thumbnail/?id=100454582151334&width=420&height=420" alt="Long Game Beta" />
+        <div class="card-title">Long Game Beta</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gfx">
+    <h2></h2>
+    <div class="gfx-gallery">
+      <img src="gfx1.png" alt="GFX1" />
+      <img src="gfx2.png" alt="GFX2" />
+      <img src="gfx3.png" alt="GFX3" />
+      <img src="gfx4.png" alt="GFX4" />
+      <img src="gfx5.png" alt="GFX5" />
+      <img src="gfx6.png" alt="GFX6" />
+      <img src="gfx7.png" alt="GFX7" />
+      <img src="gfx8.png" alt="GFX8" />
+    </div>
+  </section>
+
+  <section id="connect">
+    <h2></h2>
+    <div class="connect-icons">
+      <a href="https://discord.gg/K8QUnEDhVJ" target="_blank"><img src="discord.png" alt="Discord" width="48" /></a>
+      <a href="https://www.youtube.com/@casussa" target="_blank"><img src="youtube.png" alt="YouTube" width="48" /></a>
+      <a href="https://www.roblox.com/users/5285137754/profile" target="_blank"><img src="roblox.png" alt="Roblox" width="48" /></a>
+    </div>
+  </section>
+
+  <!-- Libraries -->
+  <script src="https://unpkg.com/gsap/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
