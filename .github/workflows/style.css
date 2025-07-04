@@ -1,4 +1,4 @@
-/* --- Base styles --- */
+
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;scroll-behavior:smooth;overflow:hidden;font-family:Segoe UI,sans-serif;color:#e0e0e0;cursor:none;}
 :root{--accent:#00adee;}
