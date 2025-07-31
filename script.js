@@ -1,23 +1,23 @@
-const body = document.body;
-const lightBg = document.getElementById('lightBg'), darkBg = document.getElementById('darkBg');
-const toggleBtn = document.getElementById('toggleBtn'), cursor = document.getElementById('cursor');
-const canvas = document.getElementById('weatherCanvas'), ctx = canvas.getContext('2d');
-const welcomeAudio = document.getElementById('welcomeAudio'), bgAudio = document.getElementById('bgAudio'), goodbyeAudio = document.getElementById('goodbyeAudio');
-let particles=[], cursorPos={x:-100,y:-100};
+const body=document.body;
+const lightBg=document.getElementById("lightBg"),darkBg=document.getElementById("darkBg");
+const toggleBtn=document.getElementById("toggleBtn"),cursor=document.getElementById("cursor");
+const canvas=document.getElementById("weatherCanvas"),ctx=canvas.getContext("2d");
+const welcomeAudio=document.getElementById("welcomeAudio"),bgAudio=document.getElementById("bgAudio"),goodbyeAudio=document.getElementById("goodbyeAudio");
+let particles=[],cursorPos={x:-100,y:-100};
 
-lightBg.style.opacity='1';
+lightBg.style.opacity="1";
 
-window.addEventListener('DOMContentLoaded',()=>{
+window.addEventListener("DOMContentLoaded",()=>{
   welcomeAudio.play().catch(()=>{});
-  welcomeAudio.addEventListener('ended',()=>bgAudio.play().catch(()=>{}));
+  welcomeAudio.addEventListener("ended",()=>bgAudio.play().catch(()=>{}));
 });
-window.addEventListener('beforeunload',()=>goodbyeAudio.play().catch(()=>{}));
+window.addEventListener("beforeunload",()=>goodbyeAudio.play().catch(()=>{}));
 
 function typeEffect(txt,el,delay){let i=0;(function loop(){if(i<txt.length){el.textContent+=txt[i++];setTimeout(loop,delay);}})();}
 
 (function animateTitle(){
   const titles=["Welcome","Casus"];
-  let idx=0, sub=0, forward=true;
+  let idx=0,sub=0,forward=true;
   setInterval(()=>{
     document.title=titles[idx].slice(0,sub);
     forward?sub++:sub--;
@@ -37,9 +37,9 @@ window.onload=()=>{
 };
 
 function initCursor(){
-  document.addEventListener('mousemove',e=>{cursor.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;cursorPos={x:e.clientX,y:e.clientY};});
+  document.addEventListener("mousemove",e=>{cursor.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;cursorPos={x:e.clientX,y:e.clientY};});
   document.querySelectorAll("a,button,.card").forEach(el=>{
-    el.addEventListener("mouseenter",()=>cursor.style.transform+= " scale(2)");
+    el.addEventListener("mouseenter",()=>cursor.style.transform+=" scale(2)");
     el.addEventListener("mouseleave",()=>cursor.style.transform=cursor.style.transform.replace(" scale(2)",""));
   });
 }
@@ -52,7 +52,7 @@ function initScroll(){
     new IntersectionObserver(([e],obs)=>{if(e.isIntersecting){img.style.opacity=1;img.style.transform="scale(1)";obs.disconnect();}},{threshold:0.3}).observe(img);
   });
   const img=document.getElementById("profilePic");
-  if(img)new IntersectionObserver(([e],obs)=>{if(e.isIntersecting){img.classList.add("visible");obs.disconnect();}}, {threshold:0.3}).observe(img);
+  if(img)new IntersectionObserver(([e],obs)=>{if(e.isIntersecting){img.classList.add("visible");obs.disconnect();}},{threshold:0.3}).observe(img);
 }
 
 function initCardHover(){
@@ -62,6 +62,16 @@ function initCardHover(){
       gsap.to(card,{rotationY:x/20,rotationX:-y/20,ease:"power1.out",duration:0.3});
     });
     card.addEventListener("mouseleave",()=>gsap.to(card,{rotationY:0,rotationX:0,duration:0.5,ease:"power2.out"}));
+  });
+
+  document.querySelectorAll(".gfx-gallery img").forEach(img=>{
+    img.addEventListener("mousemove",e=>{
+      const r=img.getBoundingClientRect(),x=((e.clientX-r.left)/r.width-.5)*20,y=((e.clientY-r.top)/r.height-.5)*20;
+      img.style.transform=`rotateX(${-y}deg) rotateY(${x}deg) scale(1.05)`;
+    });
+    img.addEventListener("mouseleave",()=>{
+      img.style.transform="rotateX(0deg) rotateY(0deg) scale(1)";
+    });
   });
 }
 
@@ -81,18 +91,15 @@ function initCanvas(){
     });
   }
 }
+
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p=>{
-    const dx=p.x-cursorPos.x, dy=p.y-cursorPos.y, dist=Math.hypot(dx,dy);
-    if(dist<80){
-      const str=(80-dist)/80;
-      p.vx+=(dx/dist)*str*0.5;p.vy+=(dy/dist)*str*0.5;
-    }
+    const dx=p.x-cursorPos.x,dy=p.y-cursorPos.y,dist=Math.hypot(dx,dy);
+    if(dist<80){const s=(80-dist)/80;p.vx+=(dx/dist)*s*0.5;p.vy+=(dy/dist)*s*0.5;}
     p.x+=p.vx;p.y+=p.vy;p.vx*=0.98;p.vy*=0.98;
     if(p.x<0||p.x>canvas.width)p.vx*=-1;
     if(p.y<0||p.y>canvas.height)p.vy*=-1;
-
     if(body.classList.contains("snow")){
       ctx.fillStyle=`rgba(255,255,255,${p.opa})`;
       ctx.beginPath();ctx.arc(p.x,p.y,p.len/2,0,Math.PI*2);ctx.fill();
@@ -100,7 +107,7 @@ function animate(){
       const x2=p.x+Math.sin(p.angle)*p.len,y2=p.y+Math.cos(p.angle)*p.len;
       const grad=ctx.createLinearGradient(p.x,p.y,x2,y2);
       grad.addColorStop(0,`rgba(0,170,238,${p.opa})`);
-      grad.addColorStop(1,'rgba(0,170,238,0)');
+      grad.addColorStop(1,"rgba(0,170,238,0)");
       ctx.strokeStyle=grad;ctx.lineWidth=p.width;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(x2,y2);ctx.stroke();
     }
   });
@@ -115,6 +122,7 @@ toggleBtn.addEventListener("click",()=>{
   darkBg.style.opacity=isSnow?"1":"0";
   initCanvas();
 });
+
 window.addEventListener("resize",initCanvas);
 
 function initVoxel(){
@@ -126,7 +134,9 @@ function initVoxel(){
   const cube=new THREE.Mesh(new THREE.BoxGeometry(),new THREE.MeshNormalMaterial());
   scene.add(cube);camera.position.z=3;
   (function animateCube(){
-    requestAnimationFrame(animateCube);cube.rotation.x+=0.01;cube.rotation.y+=0.015;renderer.render(scene,camera);
+    requestAnimationFrame(animateCube);
+    cube.rotation.x+=0.01;cube.rotation.y+=0.015;
+    renderer.render(scene,camera);
   })();
 }
 
