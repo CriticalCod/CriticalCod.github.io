@@ -26,7 +26,6 @@ function typeEffect(txt,el,delay){let i=0;(function loop(){if(i<txt.length){el.t
   },300);
 })();
 
-// On load
 window.onload=()=>{
   typeEffect("Casus",document.getElementById("typed-name"),150);
   typeEffect("With 3 years mastering code, 2 months crafting GFX, 1 year animating & extensive graphic design, I create engaging digital experiences.",document.getElementById("description"),25);
@@ -37,7 +36,6 @@ window.onload=()=>{
   new SmoothScroll("nav a[href*='#']",{speed:800,speedAsDuration:true});
 };
 
-// Cursor & interaction
 function initCursor(){
   document.addEventListener('mousemove',e=>{cursor.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;cursorPos={x:e.clientX,y:e.clientY};});
   document.querySelectorAll("a,button,.card").forEach(el=>{
